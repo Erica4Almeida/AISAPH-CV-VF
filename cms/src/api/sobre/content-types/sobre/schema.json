@@ -1,0 +1,57 @@
+{
+  "kind": "singleType",
+  "collectionName": "sobre",
+  "info": {
+    "singularName": "sobre",
+    "pluralName": "sobres",
+    "displayName": "Sobre Nós"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "historia_titulo": {
+      "type": "string"
+    },
+    "historia_conteudo": {
+      "type": "richtext"
+    },
+    "missao": {
+      "type": "text"
+    },
+    "visao": {
+      "type": "text"
+    },
+    "valores": {
+      "type": "text"
+    },
+    "stat_1_num": {
+      "type": "string"
+    },
+    "stat_1_label": {
+      "type": "string"
+    },
+    "stat_2_num": {
+      "type": "string"
+    },
+    "stat_2_label": {
+      "type": "string"
+    },
+    "stat_3_num": {
+      "type": "string"
+    },
+    "stat_3_label": {
+      "type": "string"
+    },
+    "stat_4_num": {
+      "type": "string"
+    },
+    "stat_4_label": {
+      "type": "string"
+    },
+    "certificacoes": {
+      "type": "json"
+    }
+  }
+}

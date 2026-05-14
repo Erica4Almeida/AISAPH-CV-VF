@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "inscricoes",
+  "info": {
+    "singularName": "inscricao",
+    "pluralName": "inscricoes",
+    "displayName": "Inscricao",
+    "description": "Inscrições recebidas pelo formulário do site"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "telefone": {
+      "type": "string"
+    },
+    "curso_interesse": {
+      "type": "string"
+    },
+    "mensagem": {
+      "type": "text"
+    },
+    "turma_info": {
+      "type": "string"
+    },
+    "estado": {
+      "type": "enumeration",
+      "enum": [
+        "pendente ",
+        "em_analise",
+        "aceite",
+        "rejeitado"
+      ]
+    }
+  }
+}
