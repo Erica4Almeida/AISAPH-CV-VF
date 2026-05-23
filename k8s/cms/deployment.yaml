@@ -22,7 +22,7 @@ spec:
             - sh
             - -c
             - |
-              until nc -z postgres-0.postgres.production.svc.cluster.local 5432; do
+              until nc -z postgres-0.postgres-headless.production.svc.cluster.local 5432; do
                 echo "Waiting for PostgreSQL..."; sleep 3;
               done
       containers:
