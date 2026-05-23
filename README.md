@@ -176,3 +176,19 @@ node_modules
 build
 dist
 ```
+## K8s
+
+# 1. Create the pull secret on the cluster (one-time)
+kubectl create secret docker-registry gitlab-registry-secret \
+  --namespace=production \
+  --docker-server=registry.sintaxy.com \
+  --docker-username=<YOUR_GITLAB_USERNAME> \
+  --docker-password=<YOUR_PAT_OR_PASSWORD> \
+  --docker-email=<YOUR_EMAIL>
+
+# 2. Build & push images
+chmod +x docker-build.sh
+./docker-build.sh v1.0.0   # or just: ./docker-build.sh
+
+# 3. Apply K8s manifests (see deployment order in the plan)
+kubectl apply -f k8s/
