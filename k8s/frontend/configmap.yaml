@@ -2,10 +2,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: frontend-config
-  namespace: aisaph
+  namespace: production
 data:
   # Internal cluster URL used by Next.js server-side rendering (SSR/RSC)
-  STRAPI_INTERNAL_URL: "http://cms.aisaph.svc.cluster.local:1337"
+  STRAPI_INTERNAL_URL: "http://cms.production.svc.cluster.local:1337"
   # Public URL used by the browser (must be externally reachable)
   NEXT_PUBLIC_STRAPI_URL: "https://aisaph.example.cv"   # replace with your domain
   NODE_ENV: "production"

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: aisaph
+  namespace: production
 spec:
   replicas: 2
   selector:
@@ -13,9 +13,11 @@ spec:
       labels:
         app: frontend
     spec:
+      imagePullSecrets:
+        - name: gitlab-registry-secret
       containers:
         - name: frontend
-          image: <REGISTRY>/aisaph-frontend:<TAG>   # replace with your image
+          image: registry.sintaxy.com/cvse1/aisaph-cv-vf/frontend:latest
           ports:
             - containerPort: 3000
           envFrom:

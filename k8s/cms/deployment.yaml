@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cms
-  namespace: aisaph
+  namespace: production
 spec:
   replicas: 1  # Must stay at 1 — uploads PVC is ReadWriteOnce
   selector:
@@ -13,6 +13,8 @@ spec:
       labels:
         app: cms
     spec:
+      imagePullSecrets:
+        - name: gitlab-registry-secret
       initContainers:
         - name: wait-for-postgres
           image: busybox:1.36
@@ -20,12 +22,12 @@ spec:
             - sh
             - -c
             - |
-              until nc -z postgres-0.postgres.aisaph.svc.cluster.local 5432; do
+              until nc -z postgres-0.postgres.production.svc.cluster.local 5432; do
                 echo "Waiting for PostgreSQL..."; sleep 3;
               done
       containers:
         - name: cms
-          image: <REGISTRY>/aisaph-cms:<TAG>   # replace with your image
+          image: registry.sintaxy.com/cvse1/aisaph-cv-vf/cms:latest
           ports:
             - containerPort: 1337
           envFrom:

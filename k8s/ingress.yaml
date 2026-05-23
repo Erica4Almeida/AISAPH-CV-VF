@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: aisaph-ingress
-  namespace: aisaph
+  namespace: production
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"   # allow large file uploads
     cert-manager.io/cluster-issuer: "letsencrypt-prod"   # remove if not using cert-manager
