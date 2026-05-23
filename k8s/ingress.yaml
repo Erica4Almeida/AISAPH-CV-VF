@@ -1,0 +1,48 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aisaph-ingress
+  namespace: aisaph
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"   # allow large file uploads
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"   # remove if not using cert-manager
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - aisaph.example.cv   # replace with your domain
+      secretName: aisaph-tls
+  rules:
+    - host: aisaph.example.cv   # replace with your domain
+      http:
+        paths:
+          # CMS API, admin panel, and uploaded files
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: cms
+                port:
+                  number: 1337
+          - path: /admin
+            pathType: Prefix
+            backend:
+              service:
+                name: cms
+                port:
+                  number: 1337
+          - path: /uploads
+            pathType: Prefix
+            backend:
+              service:
+                name: cms
+                port:
+                  number: 1337
+          # Everything else goes to the Next.js frontend
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 3000

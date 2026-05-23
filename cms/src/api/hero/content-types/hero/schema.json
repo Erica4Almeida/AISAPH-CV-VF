@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "hero",
+  "info": { "singularName": "hero", "pluralName": "heros", "displayName": "Hero (Homepage)" },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "badge":         { "type": "string" },
+    "titulo_parte1": { "type": "string" },
+    "titulo_destaque":{ "type": "string" },
+    "titulo_parte2": { "type": "string" },
+    "subtitulo":     { "type": "text" },
+    "stat_1_num":    { "type": "string" },
+    "stat_1_unit":   { "type": "string" },
+    "stat_1_label":  { "type": "string" },
+    "stat_2_num":    { "type": "string" },
+    "stat_2_unit":   { "type": "string" },
+    "stat_2_label":  { "type": "string" },
+    "stat_3_num":    { "type": "string" },
+    "stat_3_unit":   { "type": "string" },
+    "stat_3_label":  { "type": "string" },
+    "stat_4_num":    { "type": "string" },
+    "stat_4_unit":   { "type": "string" },
+    "stat_4_label":  { "type": "string" }
+  }
+}

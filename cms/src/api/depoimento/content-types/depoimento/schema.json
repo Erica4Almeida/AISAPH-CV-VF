@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "depoimentos",
+  "info": {
+    "singularName": "depoimento",
+    "pluralName": "depoimentos",
+    "displayName": "Depoimento",
+    "description": "Testemunhos de alunos e parceiros"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "cargo": {
+      "type": "string"
+    },
+    "empresa": {
+      "type": "string"
+    },
+    "texto": {
+      "type": "text",
+      "required": true
+    },
+    "foto": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "destaque": {
+      "type": "boolean",
+      "default": false
+    },
+    "ordem": {
+      "type": "integer",
+      "default": 99
+    },
+    "iniciais": {
+      "type": "string"
+    }
+  }
+}
