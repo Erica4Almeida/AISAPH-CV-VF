@@ -17,7 +17,7 @@ spec:
       http:
         paths:
           # CMS API, admin panel, and uploaded files
-          - path: /api
+          - path: /apii
             pathType: Prefix
             backend:
               service:
