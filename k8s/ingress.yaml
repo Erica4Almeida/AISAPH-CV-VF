@@ -4,41 +4,20 @@ metadata:
   name: aisaph-ingress
   namespace: production
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "50m"   # allow large file uploads
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"   # remove if not using cert-manager
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - aisaph.com   # replace with your domain
+        - aisaph.com
+        - cms.aisaph.com
       secretName: aisaph-tls
   rules:
-    - host: aisaph.com   # replace with your domain
+    # ── Frontend ────────────────────────────────────────────────
+    - host: aisaph.com
       http:
         paths:
-          # CMS API, admin panel, and uploaded files
-          - path: /apii
-            pathType: Prefix
-            backend:
-              service:
-                name: cms
-                port:
-                  number: 1337
-          - path: /admin
-            pathType: Prefix
-            backend:
-              service:
-                name: cms
-                port:
-                  number: 1337
-          - path: /uploads
-            pathType: Prefix
-            backend:
-              service:
-                name: cms
-                port:
-                  number: 1337
-          # Everything else goes to the Next.js frontend
           - path: /
             pathType: Prefix
             backend:
@@ -46,3 +25,14 @@ spec:
                 name: frontend
                 port:
                   number: 3000
+    # ── CMS (Strapi) ─────────────────────────────────────────────
+    - host: cms.aisaph.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cms
+                port:
+                  number: 1337

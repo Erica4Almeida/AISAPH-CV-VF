@@ -7,5 +7,5 @@ data:
   # Internal cluster URL used by Next.js server-side rendering (SSR/RSC)
   STRAPI_INTERNAL_URL: "http://cms.production.svc.cluster.local:1337"
   # Public URL used by the browser (must be externally reachable)
-  NEXT_PUBLIC_STRAPI_URL: "http://aisaph.com"   # replace with your domain
+  NEXT_PUBLIC_STRAPI_URL: "https://cms.aisaph.com"
   NODE_ENV: "production"
