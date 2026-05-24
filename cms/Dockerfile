@@ -5,21 +5,28 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
+ENV NODE_ENV=production
 RUN npm run build
 
 # ---- runner ----
 FROM node:20-alpine AS runner
 WORKDIR /opt/app
-
 ENV NODE_ENV=production
 
 COPY --from=builder /opt/app/package*.json ./
 RUN npm ci --omit=dev
 
-COPY --from=builder /opt/app/dist ./dist
-COPY --from=builder /opt/app/src ./src
-COPY --from=builder /opt/app/config ./config
-COPY --from=builder /opt/app/public ./public
+# Compiled admin panel
+COPY --from=builder /opt/app/build ./build
+
+# Compiled TypeScript output — tsconfig rootDir=. outDir=dist, so:
+#   config/*.ts  → dist/config/*.js
+#   src/**/*.ts  → dist/src/**/*.js
+# Copy compiled dirs to the locations Strapi expects at runtime
+COPY --from=builder /opt/app/dist/config ./config
+COPY --from=builder /opt/app/dist/src ./src
+
+# Migrations are plain JS/SQL — copy source directly
 COPY --from=builder /opt/app/database ./database
 
 RUN mkdir -p /opt/app/public/uploads
