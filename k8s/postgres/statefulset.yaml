@@ -17,6 +17,7 @@ spec:
       containers:
         - name: postgres
           image: postgres:16-alpine
+          args: ["-c", "hba_file=/etc/postgresql/pg_hba.conf"]
           ports:
             - containerPort: 5432
           envFrom:
@@ -25,6 +26,10 @@ spec:
           volumeMounts:
             - name: postgres-data
               mountPath: /var/lib/postgresql/data
+            - name: pg-hba
+              mountPath: /etc/postgresql/pg_hba.conf
+              subPath: pg_hba.conf
+              readOnly: true
           livenessProbe:
             exec:
               command: ["pg_isready", "-U", "$(POSTGRES_USER)", "-d", "$(POSTGRES_DB)"]
@@ -42,6 +47,10 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "500m"
+      volumes:
+        - name: pg-hba
+          configMap:
+            name: postgres-pg-hba
   volumeClaimTemplates:
     - metadata:
         name: postgres-data
