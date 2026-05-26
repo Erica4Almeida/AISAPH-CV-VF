@@ -25,6 +25,12 @@ spec:
               until nc -z postgres-0.postgres-headless.production.svc.cluster.local 5432; do
                 echo "Waiting for PostgreSQL..."; sleep 3;
               done
+        - name: init-public
+          image: busybox:1.36
+          command: ["sh", "-c", "mkdir -p /public/uploads"]
+          volumeMounts:
+            - name: uploads
+              mountPath: /public
       containers:
         - name: cms
           image: registry.sintaxy.com/cvse1/aisaph-cv-vf/cms:latest
