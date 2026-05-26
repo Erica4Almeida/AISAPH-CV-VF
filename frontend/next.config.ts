@@ -12,6 +12,11 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'cms.aisaph.com',
+        pathname: '/uploads/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'api.aisaph-cv.com',
         pathname: '/uploads/**',
       },

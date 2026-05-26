@@ -8,4 +8,5 @@ data:
   STRAPI_INTERNAL_URL: "http://cms.production.svc.cluster.local:1337"
   # Public URL used by the browser (must be externally reachable)
   NEXT_PUBLIC_STRAPI_URL: "https://cms.aisaph.com"
+  NEXT_PUBLIC_SITE_URL: "https://aisaph.com"
   NODE_ENV: "production"
