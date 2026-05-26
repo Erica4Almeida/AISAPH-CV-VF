@@ -40,14 +40,14 @@ spec:
               mountPath: /opt/app/public/uploads
           livenessProbe:
             httpGet:
-              path: /api
+              path: /_health
               port: 1337
             initialDelaySeconds: 60
             periodSeconds: 15
             failureThreshold: 5
           readinessProbe:
             httpGet:
-              path: /api
+              path: /_health
               port: 1337
             initialDelaySeconds: 30
             periodSeconds: 10
