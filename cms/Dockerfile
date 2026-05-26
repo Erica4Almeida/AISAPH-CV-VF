@@ -12,7 +12,7 @@ RUN npm run build
 # Remove dev dependencies after build
 RUN npm prune --omit=dev
 
-RUN mkdir -p /opt/app/public/uploads
+RUN mkdir -p /opt/app/public
 
 EXPOSE 1337
 

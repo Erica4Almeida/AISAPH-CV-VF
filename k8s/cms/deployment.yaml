@@ -37,7 +37,7 @@ spec:
                 name: cms-secret
           volumeMounts:
             - name: uploads
-              mountPath: /opt/app/public/uploads
+              mountPath: /opt/app/public
           livenessProbe:
             httpGet:
               path: /_health
