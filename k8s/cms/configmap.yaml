@@ -12,4 +12,5 @@ data:
   DATABASE_NAME: "aisaph"
   DATABASE_USERNAME: "aisaph"
   DATABASE_SSL: "false"
+  PUBLIC_URL: "https://cms.aisaph.com"
   NODE_ENV: "production"
