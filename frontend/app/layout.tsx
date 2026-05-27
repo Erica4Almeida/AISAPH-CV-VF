@@ -11,6 +11,8 @@ import { getConfiguracao } from '@/services/api'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://aisaph-cv.com'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
