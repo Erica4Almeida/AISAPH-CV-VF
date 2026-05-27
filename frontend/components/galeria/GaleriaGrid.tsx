@@ -3,11 +3,10 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import type { GaleriaFoto, StrapiMedia } from '@/types'
-
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
+import { mediaUrl as cmsMediaUrl } from '@/lib/media'
 
 function mediaUrl(media: StrapiMedia): string {
-  return media.url.startsWith('http') ? media.url : `${STRAPI_URL}${media.url}`
+  return cmsMediaUrl(media.url)
 }
 
 type ImageItem = {

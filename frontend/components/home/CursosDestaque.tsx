@@ -4,8 +4,7 @@ import Image from 'next/image'
 import type { Curso } from '@/types'
 import { useLanguage } from '@/contexts/LanguageContext'
 import type { Translations } from '@/locales/translations'
-
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
+import { mediaUrl } from '@/lib/media'
 
 interface Props { cursos: Curso[] }
 
@@ -53,7 +52,7 @@ function CourseCard({ curso, t }: { curso: Curso; t: Translations }) {
       {img && (
         <div className="curso-card-img">
           <Image
-            src={`${STRAPI_URL}${img.url}`}
+            src={mediaUrl(img.url)}
             alt={img.alternativeText || curso.titulo}
             fill
             style={{ objectFit: 'cover' }}

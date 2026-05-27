@@ -4,13 +4,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getCursoBySlug, getCursos } from '@/services/api'
 import { getT } from '@/lib/getT'
+import { mediaUrl as imgSrc } from '@/lib/media'
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://aisaph-cv.com'
-
-function imgSrc(url: string) {
-  return url.startsWith('http') ? url : `${STRAPI_URL}${url}`
-}
 
 interface Props { params: Promise<{ slug: string }> }
 

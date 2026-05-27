@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { getNoticias } from '@/services/api'
 import { getT } from '@/lib/getT'
 import type { Noticia } from '@/types'
+import { mediaUrl } from '@/lib/media'
 
 export const metadata: Metadata = {
   title: 'Notícias',
@@ -13,12 +14,8 @@ export const metadata: Metadata = {
   },
 }
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
-
 function getImageUrl(noticia: Noticia): string | null {
-  const media = noticia.imagem
-  if (!media?.url) return null
-  return media.url.startsWith('http') ? media.url : `${STRAPI_URL}${media.url}`
+  return mediaUrl(noticia.imagem?.url) || null
 }
 
 function formatDate(dateStr: string | undefined, locale: string): string {

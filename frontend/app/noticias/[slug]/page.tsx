@@ -4,8 +4,7 @@ import Link from 'next/link'
 import { getNoticiaBySlug, getNoticias } from '@/services/api'
 import { getT } from '@/lib/getT'
 import BlocksRenderer from '@/components/BlocksRenderer'
-
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
+import { mediaUrl } from '@/lib/media'
 
 export async function generateStaticParams() {
   const noticias = await getNoticias()
@@ -29,9 +28,7 @@ export default async function NoticiaPage({ params }: { params: Promise<{ slug: 
 
   if (!noticia) notFound()
 
-  const imgUrl = noticia.imagem?.url
-    ? noticia.imagem.url.startsWith('http') ? noticia.imagem.url : `${STRAPI_URL}${noticia.imagem.url}`
-    : null
+  const imgUrl = mediaUrl(noticia.imagem?.url) || null
 
   const dataFormatada = (noticia.data_publicacao || noticia.publishedAt)
     ? new Date(noticia.data_publicacao || noticia.publishedAt).toLocaleDateString(

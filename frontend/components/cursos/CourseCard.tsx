@@ -3,8 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import type { Curso } from '@/types'
 import { useLanguage } from '@/contexts/LanguageContext'
-
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
+import { mediaUrl } from '@/lib/media'
 
 export default function CourseCard({ curso, priority }: { curso: Curso; priority?: boolean }) {
   const { t } = useLanguage()
@@ -16,7 +15,7 @@ export default function CourseCard({ curso, priority }: { curso: Curso; priority
       {img ? (
         <div className="cc-img">
           <Image
-            src={`${STRAPI_URL}${img.url}`}
+            src={mediaUrl(img.url)}
             alt={img.alternativeText || curso.titulo}
             fill
             priority={priority}

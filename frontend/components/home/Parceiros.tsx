@@ -2,8 +2,7 @@
 import Image from 'next/image'
 import type { Parceiro } from '@/types'
 import { useLanguage } from '@/contexts/LanguageContext'
-
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
+import { mediaUrl } from '@/lib/media'
 
 export default function Parceiros({ parceiros }: { parceiros: Parceiro[] }) {
   const { t } = useLanguage()
@@ -21,7 +20,7 @@ export default function Parceiros({ parceiros }: { parceiros: Parceiro[] }) {
                   className="parceiro-logo-link"
                 >
                   <Image
-                    src={`${STRAPI_URL}${p.logo.url}`}
+                    src={mediaUrl(p.logo.url)}
                     alt={p.logo.alternativeText || p.nome}
                     width={120} height={40}
                     style={{ objectFit: 'contain', filter: 'grayscale(100%)' }}
