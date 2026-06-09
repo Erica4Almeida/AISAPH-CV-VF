@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import type { Configuracao } from '@/types'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
@@ -18,10 +19,12 @@ export default function InCompanyDestaque({ cfg }: { cfg: Configuracao | null })
       <div className="incompany-grid">
         {imagemSrc && (
           <div className="incompany-img-wrap">
-            <img
+            <Image
               src={imagemSrc}
               alt={cfg.incompany_titulo || 'Formação In-Company AISAPH-CV'}
-              className="incompany-img"
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'center 25%' }}
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
             <div className="incompany-img-overlay" />
             {cfg.incompany_badge_num && (

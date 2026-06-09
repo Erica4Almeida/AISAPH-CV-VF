@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getCursos, getNoticias } from '@/services/api'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://aisaph-cv.com'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://aisaph.com'
 
 const staticRoutes = [
   { url: '/',                    priority: 1.0,  changeFrequency: 'weekly'  },

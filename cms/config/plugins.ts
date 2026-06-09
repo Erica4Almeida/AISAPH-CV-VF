@@ -3,18 +3,15 @@ module.exports = ({ env }) => ({
   upload: {
     config: {
       provider: env('UPLOAD_PROVIDER', 'local'),
-      // Para S3 em produção:
-      // provider: 'aws-s3',
-      // providerOptions: {
-      //   s3Options: {
-      //     credentials: {
-      //       accessKeyId: env('AWS_ACCESS_KEY_ID'),
-      //       secretAccessKey: env('AWS_ACCESS_SECRET'),
-      //     },
-      //     region: env('AWS_REGION'),
-      //     params: { Bucket: env('AWS_BUCKET') },
-      //   },
-      // },
+      sizeOptimization: true,
+      responsiveDimensions: true,
+      breakpoints: {
+        xlarge: 1920,
+        large: 1000,
+        medium: 750,
+        small: 500,
+        xsmall: 64,
+      },
       actionOptions: {
         upload: {},
         uploadStream: {},

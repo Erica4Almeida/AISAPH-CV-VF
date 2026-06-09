@@ -4,9 +4,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { getCursoBySlug, getCursos } from '@/services/api'
 import { getT } from '@/lib/getT'
+import CourseCard from '@/components/cursos/CourseCard'
+import Breadcrumb from '@/components/ui/Breadcrumb'
+import type { CursoCategoria } from '@/types'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://aisaph-cv.com'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://aisaph.com'
 
 function imgSrc(url: string) {
   return url.startsWith('http') ? url : `${STRAPI_URL}${url}`
@@ -40,6 +43,10 @@ export default async function CursoDetailPage({ params }: Props) {
   const [curso, t] = await Promise.all([getCursoBySlug(slug), getT()])
   if (!curso) notFound()
 
+  const relacionados = (await getCursos(curso.categoria as CursoCategoria))
+    .filter(c => c.slug !== curso.slug)
+    .slice(0, 3)
+
   const { titulo, descricao, carga_horaria, publico_alvo, certificacao, categoria, imagem } = curso
   const img = imagem
   const catLabel = t.cursos.categorias[categoria as keyof typeof t.cursos.categorias] ?? categoria
@@ -67,11 +74,10 @@ export default async function CursoDetailPage({ params }: Props) {
         color: '#fff',
       }}>
         <div className="container container-lg">
-          <div className="curso-breadcrumb">
-            <Link href="/cursos" className="breadcrumb-link">← Cursos</Link>
-            <span>/</span>
-            <span className="curso-breadcrumb-current">{titulo}</span>
-          </div>
+          <Breadcrumb items={[
+            { label: 'Cursos', href: '/cursos' },
+            { label: titulo },
+          ]} />
           <div className="curso-cat-badge">{catLabel}</div>
           <h1 className="curso-hero-h1">{titulo}</h1>
         </div>
@@ -126,6 +132,21 @@ export default async function CursoDetailPage({ params }: Props) {
           </div>
         </div>
       </section>
+
+      {relacionados.length > 0 && (
+        <section className="section" style={{ background: 'var(--cinza-claro)' }}>
+          <div className="container">
+            <h2 className="section-h2" style={{ textAlign: 'center', marginBottom: '40px' }}>
+              Outros cursos que podem interessar
+            </h2>
+            <div className="cursos-resultado-grid">
+              {relacionados.map((c, i) => (
+                <CourseCard key={c.id} curso={c} priority={i === 0} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   )
 }

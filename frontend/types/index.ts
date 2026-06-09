@@ -171,6 +171,8 @@ export interface Noticia {
   resumo?: string
   conteudo?: unknown
   imagem?: StrapiMedia | null
+  galeria?: StrapiMedia[]
+  video_url?: string
   data_publicacao?: string
   destaque?: boolean
   publishedAt: string

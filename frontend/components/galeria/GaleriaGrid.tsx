@@ -120,6 +120,7 @@ export default function GaleriaGrid({ fotos }: { fotos: GaleriaFoto[] }) {
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     alt={img.alt}
                     style={{ objectFit: 'cover' }}
+                    priority={img.flatIdx < 6}
                   />
                   <div className="foto-overlay">
                     {img.descricao && (

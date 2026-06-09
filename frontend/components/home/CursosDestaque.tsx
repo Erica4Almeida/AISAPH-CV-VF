@@ -4,6 +4,7 @@ import Image from 'next/image'
 import type { Curso } from '@/types'
 import { useLanguage } from '@/contexts/LanguageContext'
 import type { Translations } from '@/locales/translations'
+import AnimateOnScroll from '@/components/ui/AnimateOnScroll'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
 
@@ -34,7 +35,11 @@ export default function CursosDestaque({ cursos }: Props) {
       </div>
 
       <div className="cursos-grid">
-        {ordenados.map(c => <CourseCard key={c.id} curso={c} t={t} />)}
+        {ordenados.map((c, i) => (
+          <AnimateOnScroll key={c.id} variant="fade-up" delay={i * 120}>
+            <CourseCard curso={c} t={t} />
+          </AnimateOnScroll>
+        ))}
       </div>
 
       <div className="cursos-destaque-footer">

@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import Link from 'next/link'
 import type { Hero } from '@/types'
 import { useLanguage } from '@/contexts/LanguageContext'
+import CountUp from '@/components/ui/CountUp'
 
 export default function HeroSection({ hero }: { hero?: Hero | null }) {
   const { t } = useLanguage()
@@ -75,7 +76,7 @@ export default function HeroSection({ hero }: { hero?: Hero | null }) {
             }}
           >
             <div className="hero-stat-num">
-              {s.num}<span className="hero-stat-unit">{s.unit}</span>
+              <CountUp value={s.num} suffix={s.unit} />
             </div>
             <div className="hero-stat-label">{s.label}</div>
           </div>

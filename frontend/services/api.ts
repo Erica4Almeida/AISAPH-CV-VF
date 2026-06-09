@@ -42,17 +42,18 @@ async function fetchOnce<T>(
   path: string,
   params: Record<string, string>,
   fallback: T,
+  revalidate = 300,
 ): Promise<{ ok: boolean; data: T }> {
   const url = new URL(`${BASE_URL}/api${path}`)
   for (const [k, v] of Object.entries(params)) url.searchParams.set(k, v)
 
   const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), 2000)
+  const timer = setTimeout(() => controller.abort(), 8000)
 
   try {
     const res = await fetch(url.toString(), {
       headers: buildHeaders(),
-      next: { revalidate: 60 },
+      next: { revalidate },
       signal: controller.signal,
     })
     clearTimeout(timer)
@@ -68,12 +69,13 @@ async function get<T>(
   path: string,
   params: Record<string, string> = {},
   fallback: T,
-  options?: { noLocale?: boolean },
+  options?: { noLocale?: boolean; revalidate?: number },
 ): Promise<T> {
   const locale = options?.noLocale ? 'pt' : await getLocale()
+  const revalidate = options?.revalidate ?? 300
 
   if (locale !== 'pt') {
-    const result = await fetchOnce<T>(path, { ...params, locale }, fallback)
+    const result = await fetchOnce<T>(path, { ...params, locale }, fallback, revalidate)
     if (result.ok) {
       // Strapi devolve 200 com array vazio quando não existe tradução nesse locale
       const d = result.data as { data?: unknown[] } | unknown
@@ -84,7 +86,7 @@ async function get<T>(
     }
   }
 
-  const result = await fetchOnce<T>(path, params, fallback)
+  const result = await fetchOnce<T>(path, params, fallback, revalidate)
   return result.data
 }
 
@@ -249,14 +251,14 @@ export async function getNoticias(destaque?: boolean): Promise<Noticia[]> {
     'pagination[limit]': '50',
   }
   if (destaque !== undefined) params['filters[destaque][$eq]'] = String(destaque)
-  const res = await get<{ data: Noticia[] }>('/noticias', params, { data: [] }, { noLocale: true })
+  const res = await get<{ data: Noticia[] }>('/noticias', params, { data: [] }, { noLocale: true, revalidate: 60 })
   return res.data
 }
 
 export async function getNoticiaBySlug(slug: string): Promise<Noticia | null> {
   const res = await get<{ data: Noticia[] }>(
     '/noticias',
-    { 'filters[slug][$eq]': slug, populate: 'imagem' },
+    { 'filters[slug][$eq]': slug, populate: '*' },
     { data: [] },
     { noLocale: true },
   )

@@ -1,9 +1,13 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { getNoticiaBySlug, getNoticias } from '@/services/api'
 import { getT } from '@/lib/getT'
 import BlocksRenderer from '@/components/BlocksRenderer'
+import ShareButtons from '@/components/ui/ShareButtons'
+import YoutubeEmbed from '@/components/ui/YoutubeEmbed'
+import Breadcrumb from '@/components/ui/Breadcrumb'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
 
@@ -50,9 +54,10 @@ export default async function NoticiaPage({ params }: { params: Promise<{ slug: 
         color: '#fff',
       }}>
         <div className="container container-md">
-          <Link href="/noticias" className="breadcrumb-link noticia-breadcrumb">
-            {t.noticias.voltar}
-          </Link>
+          <Breadcrumb items={[
+            { label: 'Notícias', href: '/noticias' },
+            { label: noticia.titulo },
+          ]} />
           {dataFormatada && <p className="noticia-pub-date">{t.noticias.publicadoEm} {dataFormatada}</p>}
           <h1 className="noticia-h1">{noticia.titulo}</h1>
         </div>
@@ -62,6 +67,35 @@ export default async function NoticiaPage({ params }: { params: Promise<{ slug: 
         <div className="container container-md">
           {noticia.resumo && <p className="noticia-lead">{noticia.resumo}</p>}
           {noticia.conteudo ? <BlocksRenderer content={noticia.conteudo} /> : null}
+          {noticia.video_url && (
+            <YoutubeEmbed url={noticia.video_url} titulo={noticia.titulo} />
+          )}
+
+          {noticia.galeria && noticia.galeria.length > 0 && (
+            <div className="noticia-galeria">
+              <h3 className="noticia-galeria-titulo">Fotografias</h3>
+              <div className="noticia-galeria-grid">
+                {noticia.galeria.map((foto, i) => {
+                  const src = foto.url.startsWith('http') ? foto.url : `${STRAPI_URL}${foto.url}`
+                  return (
+                    <div key={foto.url} className="noticia-galeria-item">
+                      <Image
+                        src={src}
+                        alt={foto.alternativeText || noticia.titulo}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        priority={i < 3}
+                      />
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
+          <ShareButtons titulo={noticia.titulo} />
+
           <div className="noticia-voltar-wrap">
             <Link href="/noticias" className="noticia-voltar">{t.noticias.voltar}</Link>
           </div>

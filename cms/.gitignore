@@ -1,12 +1,11 @@
-.env
+﻿.env
 node_modules
 public/uploads/*
 !public/uploads/.gitkeep
 dist
 build
 .tmp
+*.log
 .strapi
 .strapi-updater.json
 .strapi-cloud.json
-*.log
-exports

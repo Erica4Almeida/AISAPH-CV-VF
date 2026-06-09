@@ -1,6 +1,7 @@
 'use client'
 import type { Diferencial } from '@/types'
 import { useLanguage } from '@/contexts/LanguageContext'
+import AnimateOnScroll from '@/components/ui/AnimateOnScroll'
 
 export default function PorqueEscolher({ diferenciais }: { diferenciais: Diferencial[] }) {
   const { t } = useLanguage()
@@ -23,8 +24,10 @@ export default function PorqueEscolher({ diferenciais }: { diferenciais: Diferen
         </div>
 
         <div className="porque-grid">
-          {diferenciais.map(item => (
-            <PorqueItem key={item.id} item={item} />
+          {diferenciais.map((item, i) => (
+            <AnimateOnScroll key={item.id} variant="fade-up" delay={i * 100}>
+              <PorqueItem item={item} />
+            </AnimateOnScroll>
           ))}
         </div>
       </div>
