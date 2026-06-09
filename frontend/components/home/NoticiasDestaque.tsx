@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import type { Noticia } from '@/types'
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll'
+import { formatDate } from '@/lib/formatDate'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
 
@@ -10,10 +11,6 @@ function getImgUrl(n: Noticia): string | null {
   return n.imagem.url.startsWith('http') ? n.imagem.url : `${STRAPI_URL}${n.imagem.url}`
 }
 
-function formatDate(dateStr?: string): string {
-  if (!dateStr) return ''
-  return new Date(dateStr).toLocaleDateString('pt-CV', { day: 'numeric', month: 'long', year: 'numeric' })
-}
 
 export default function NoticiasDestaque({ noticias }: { noticias: Noticia[] }) {
   if (!noticias || noticias.length === 0) return null

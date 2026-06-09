@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getTermosCondicoes } from '@/services/api'
 import { getT } from '@/lib/getT'
+import { formatDate } from '@/lib/formatDate'
 
 export const metadata: Metadata = {
   title: 'Termos e Condições',
@@ -18,7 +19,7 @@ export default async function TermosCondicoesPage() {
           <h1 className="legal-hero-h1">{t.nav.termosCondicoes}</h1>
           {data?.data_atualizacao && (
             <p className="legal-hero-date">
-              {t.common.ultimaAtualizacao} {new Date(data.data_atualizacao).toLocaleDateString(t.common.dateLocale)}
+              {t.common.ultimaAtualizacao} {formatDate(data.data_atualizacao, t.common.dateLocale)}
             </p>
           )}
         </div>

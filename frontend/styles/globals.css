@@ -1498,8 +1498,9 @@ footer {
 
 /* ── Noticias page ───────────────────────────────────────────────────────── */
 
-.noticias-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px; }
-.noticia-link   { text-decoration: none; display: flex; flex-direction: column; }
+.noticias-grid      { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px; align-items: stretch; }
+.noticias-grid > *  { height: 100%; }
+.noticia-link        { text-decoration: none; display: flex; flex-direction: column; height: 100%; }
 .noticia-img-wrap { position: relative; height: 200px; overflow: hidden; flex-shrink: 0; }
 .noticia-img-wrap img { transition: transform 0.5s ease !important; }
 .noticia-img      { width: 100%; height: 100%; object-fit: cover; display: block; }

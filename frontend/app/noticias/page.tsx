@@ -5,6 +5,7 @@ import { getNoticias } from '@/services/api'
 import { getT } from '@/lib/getT'
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll'
 import type { Noticia } from '@/types'
+import { formatDate } from '@/lib/formatDate'
 
 export const metadata: Metadata = {
   title: 'Notícias',
@@ -23,10 +24,6 @@ function getImageUrl(noticia: Noticia): string | null {
   return media.url.startsWith('http') ? media.url : `${STRAPI_URL}${media.url}`
 }
 
-function formatDate(dateStr: string | undefined, locale: string): string {
-  if (!dateStr) return ''
-  return new Date(dateStr).toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' })
-}
 
 export default async function NoticiasPage() {
   const [noticias, t] = await Promise.all([getNoticias(), getT()])

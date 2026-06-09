@@ -13,7 +13,7 @@ export default function Parceiros({ parceiros }: { parceiros: Parceiro[] }) {
     <section className="parceiros-section">
       <p className="parceiros-tag">{t.home.parceirosTag}</p>
       <div className="parceiros-lista">
-        {parceiros.map(p => (
+        {parceiros.map((p) => (
           <div key={p.id} className="parceiro-item">
             {p.logo
               ? (
@@ -25,6 +25,7 @@ export default function Parceiros({ parceiros }: { parceiros: Parceiro[] }) {
                     alt={p.logo.alternativeText || p.nome}
                     width={120} height={40}
                     style={{ objectFit: 'contain', filter: 'grayscale(100%)' }}
+                    priority
                   />
                 </a>
               )

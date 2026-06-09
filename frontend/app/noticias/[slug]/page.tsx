@@ -8,6 +8,7 @@ import BlocksRenderer from '@/components/BlocksRenderer'
 import ShareButtons from '@/components/ui/ShareButtons'
 import YoutubeEmbed from '@/components/ui/YoutubeEmbed'
 import Breadcrumb from '@/components/ui/Breadcrumb'
+import { formatDate } from '@/lib/formatDate'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
 
@@ -37,12 +38,7 @@ export default async function NoticiaPage({ params }: { params: Promise<{ slug: 
     ? noticia.imagem.url.startsWith('http') ? noticia.imagem.url : `${STRAPI_URL}${noticia.imagem.url}`
     : null
 
-  const dataFormatada = (noticia.data_publicacao || noticia.publishedAt)
-    ? new Date(noticia.data_publicacao || noticia.publishedAt).toLocaleDateString(
-        t.common.dateLocale,
-        { day: 'numeric', month: 'long', year: 'numeric' },
-      )
-    : null
+  const dataFormatada = formatDate(noticia.data_publicacao || noticia.publishedAt, t.common.dateLocale)
 
   return (
     <>
