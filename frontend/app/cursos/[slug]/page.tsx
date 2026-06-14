@@ -68,7 +68,7 @@ export default async function CursoDetailPage({ params }: Props) {
 
       <section style={{
         background: img
-          ? `linear-gradient(135deg,rgba(10,61,98,0.92) 0%,rgba(10,61,98,0.75) 100%), url('${imgSrc(img.url)}') center/cover no-repeat`
+          ? `linear-gradient(135deg,rgba(10,61,98,0.92) 0%,rgba(10,61,98,0.75) 100%), url('${imgSrc(img.url)}') center 25%/cover no-repeat`
           : 'var(--azul)',
         padding: '120px 0 80px',
         color: '#fff',

@@ -172,6 +172,9 @@ img { max-width: 100%; display: block; }
   position: relative;
   transition: transform 0.3s;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .curso-card::before {
   content: '';
@@ -898,7 +901,8 @@ footer {
 .cursos-destaque-subtitle { font-size: 1.05rem; color: #4a5a75; line-height: 1.7; }
 .cursos-destaque-footer { text-align: center; margin-top: 48px; }
 
-.cursos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.cursos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.cursos-grid > * { height: 100%; }
 
 .curso-card-img { position: relative; height: 180px; margin-bottom: 24px; }
 
@@ -920,7 +924,7 @@ footer {
   line-height: 1.2;
 }
 
-.curso-card-desc { font-size: 0.95rem; color: #5a6a85; line-height: 1.6; margin-bottom: 24px; }
+.curso-card-desc { font-size: 0.95rem; color: #5a6a85; line-height: 1.6; margin-bottom: 24px; flex: 1; }
 
 .curso-card-meta {
   display: flex;

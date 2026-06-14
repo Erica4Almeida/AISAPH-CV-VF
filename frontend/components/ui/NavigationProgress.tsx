@@ -24,9 +24,6 @@ export default function NavigationProgress() {
 
       const target = href.split('?')[0].split('#')[0]
 
-      // Sempre rola ao topo
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-
       // Se já estamos nessa página, não mostrar barra
       if (target === pathname) return
 

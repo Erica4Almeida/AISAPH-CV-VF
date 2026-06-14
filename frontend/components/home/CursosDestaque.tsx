@@ -61,7 +61,7 @@ function CourseCard({ curso, t }: { curso: Curso; t: Translations }) {
             src={`${STRAPI_URL}${img.url}`}
             alt={img.alternativeText || curso.titulo}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: 'cover', objectPosition: 'center 25%' }}
           />
         </div>
       )}

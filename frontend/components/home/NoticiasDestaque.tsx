@@ -39,7 +39,7 @@ export default function NoticiasDestaque({ noticias }: { noticias: Noticia[] }) 
                           src={imgUrl}
                           alt={n.titulo}
                           fill
-                          style={{ objectFit: 'cover' }}
+                          style={{ objectFit: 'cover', objectPosition: 'center 25%' }}
                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         />
                       </div>

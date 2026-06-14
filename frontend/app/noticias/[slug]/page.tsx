@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
 import { getNoticiaBySlug, getNoticias } from '@/services/api'
 import { getT } from '@/lib/getT'
 import BlocksRenderer from '@/components/BlocksRenderer'
@@ -9,6 +8,7 @@ import ShareButtons from '@/components/ui/ShareButtons'
 import YoutubeEmbed from '@/components/ui/YoutubeEmbed'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 import { formatDate } from '@/lib/formatDate'
+import NoticiaGaleria from '@/components/ui/NoticiaGaleria'
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
 
@@ -44,7 +44,7 @@ export default async function NoticiaPage({ params }: { params: Promise<{ slug: 
     <>
       <section style={{
         background: imgUrl
-          ? `linear-gradient(rgba(18,78,124,0.72) 0%, rgba(18,78,124,0.85) 100%), url('${imgUrl}') center/cover no-repeat`
+          ? `linear-gradient(rgba(18,78,124,0.72) 0%, rgba(18,78,124,0.85) 100%), url('${imgUrl}') center 25%/cover no-repeat`
           : 'var(--azul)',
         padding: '100px 0 80px',
         color: '#fff',
@@ -70,23 +70,7 @@ export default async function NoticiaPage({ params }: { params: Promise<{ slug: 
           {noticia.galeria && noticia.galeria.length > 0 && (
             <div className="noticia-galeria">
               <h3 className="noticia-galeria-titulo">Fotografias</h3>
-              <div className="noticia-galeria-grid">
-                {noticia.galeria.map((foto, i) => {
-                  const src = foto.url.startsWith('http') ? foto.url : `${STRAPI_URL}${foto.url}`
-                  return (
-                    <div key={foto.url} className="noticia-galeria-item">
-                      <Image
-                        src={src}
-                        alt={foto.alternativeText || noticia.titulo}
-                        fill
-                        style={{ objectFit: 'cover' }}
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        priority={i < 3}
-                      />
-                    </div>
-                  )
-                })}
-              </div>
+              <NoticiaGaleria fotos={noticia.galeria} titulo={noticia.titulo} />
             </div>
           )}
 
