@@ -2,7 +2,8 @@
 import Image from 'next/image'
 import type { Parceiro } from '@/types'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { mediaUrl } from '@/lib/media'
+
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
 
 export default function Parceiros({ parceiros }: { parceiros: Parceiro[] }) {
   const { t } = useLanguage()
@@ -12,7 +13,7 @@ export default function Parceiros({ parceiros }: { parceiros: Parceiro[] }) {
     <section className="parceiros-section">
       <p className="parceiros-tag">{t.home.parceirosTag}</p>
       <div className="parceiros-lista">
-        {parceiros.map(p => (
+        {parceiros.map((p) => (
           <div key={p.id} className="parceiro-item">
             {p.logo
               ? (
@@ -20,10 +21,11 @@ export default function Parceiros({ parceiros }: { parceiros: Parceiro[] }) {
                   className="parceiro-logo-link"
                 >
                   <Image
-                    src={mediaUrl(p.logo.url)}
+                    src={`${STRAPI_URL}${p.logo.url}`}
                     alt={p.logo.alternativeText || p.nome}
                     width={120} height={40}
                     style={{ objectFit: 'contain', filter: 'grayscale(100%)' }}
+                    priority
                   />
                 </a>
               )

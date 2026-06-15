@@ -3,8 +3,8 @@ import { useState } from 'react'
 import Image from 'next/image'
 import type { Depoimento } from '@/types'
 import { useLanguage } from '@/contexts/LanguageContext'
-import { mediaUrl } from '@/lib/media'
 
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL ?? 'http://localhost:1337'
 const PER_PAGE = 3
 const MAX_CHARS = 150
 
@@ -100,7 +100,7 @@ function DepCard({ depoimento: d, t }: { depoimento: Depoimento; t: ReturnType<t
       <div className="dep-card-author">
         {d.foto ? (
           <Image
-            src={mediaUrl(d.foto.url)}
+            src={`${STRAPI_URL}${d.foto.url}`}
             alt={d.nome}
             width={36} height={36}
             style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}

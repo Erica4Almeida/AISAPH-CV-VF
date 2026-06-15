@@ -4,7 +4,9 @@ import Image from 'next/image'
 import type { Curso } from '@/types'
 import { useLanguage } from '@/contexts/LanguageContext'
 import type { Translations } from '@/locales/translations'
-import { mediaUrl } from '@/lib/media'
+import AnimateOnScroll from '@/components/ui/AnimateOnScroll'
+
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
 
 interface Props { cursos: Curso[] }
 
@@ -33,7 +35,11 @@ export default function CursosDestaque({ cursos }: Props) {
       </div>
 
       <div className="cursos-grid">
-        {ordenados.map(c => <CourseCard key={c.id} curso={c} t={t} />)}
+        {ordenados.map((c, i) => (
+          <AnimateOnScroll key={c.id} variant="fade-up" delay={i * 120}>
+            <CourseCard curso={c} t={t} />
+          </AnimateOnScroll>
+        ))}
       </div>
 
       <div className="cursos-destaque-footer">
@@ -52,10 +58,10 @@ function CourseCard({ curso, t }: { curso: Curso; t: Translations }) {
       {img && (
         <div className="curso-card-img">
           <Image
-            src={mediaUrl(img.url)}
+            src={`${STRAPI_URL}${img.url}`}
             alt={img.alternativeText || curso.titulo}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: 'cover', objectPosition: 'center 25%' }}
           />
         </div>
       )}

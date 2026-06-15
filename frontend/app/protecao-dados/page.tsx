@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getProtecaoDados } from '@/services/api'
 import { getT } from '@/lib/getT'
+import { formatDate } from '@/lib/formatDate'
 
 export const metadata: Metadata = {
   title: 'Política de Proteção de Dados',
@@ -18,7 +19,7 @@ export default async function ProtecaoDadosPage() {
           <h1 className="legal-hero-h1">{t.nav.protecaoDados}</h1>
           {data?.data_atualizacao && (
             <p className="legal-hero-date">
-              {t.common.ultimaAtualizacao} {new Date(data.data_atualizacao).toLocaleDateString(t.common.dateLocale)}
+              {t.common.ultimaAtualizacao} {formatDate(data.data_atualizacao, t.common.dateLocale)}
             </p>
           )}
         </div>

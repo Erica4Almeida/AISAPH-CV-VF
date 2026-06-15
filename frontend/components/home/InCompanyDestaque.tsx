@@ -1,22 +1,30 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import type { Configuracao } from '@/types'
-import { mediaUrl } from '@/lib/media'
+
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
 
 export default function InCompanyDestaque({ cfg }: { cfg: Configuracao | null }) {
   if (!cfg) return null
 
   const servicos: string[] = Array.isArray(cfg.incompany_servicos) ? cfg.incompany_servicos : []
-  const imagemSrc = cfg.incompany_imagem_url ? mediaUrl(cfg.incompany_imagem_url) : null
+  const imagemSrc = cfg.incompany_imagem_url
+    ? cfg.incompany_imagem_url.startsWith('http')
+      ? cfg.incompany_imagem_url
+      : `${STRAPI_URL}${cfg.incompany_imagem_url}`
+    : null
 
   return (
     <section id="incompany" className="incompany-section">
       <div className="incompany-grid">
         {imagemSrc && (
           <div className="incompany-img-wrap">
-            <img
+            <Image
               src={imagemSrc}
               alt={cfg.incompany_titulo || 'Formação In-Company AISAPH-CV'}
-              className="incompany-img"
+              fill
+              style={{ objectFit: 'cover', objectPosition: 'center 25%' }}
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
             <div className="incompany-img-overlay" />
             {cfg.incompany_badge_num && (

@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getSobre } from '@/services/api'
 import { getT } from '@/lib/getT'
+import AnimateOnScroll from '@/components/ui/AnimateOnScroll'
+import CountUp from '@/components/ui/CountUp'
 
 export const metadata: Metadata = {
   title: 'Sobre Nós',
@@ -39,6 +41,7 @@ export default async function SobrePage() {
         </div>
       </section>
 
+      <AnimateOnScroll variant="fade-up">
       <section className="section">
         <div className="container">
           <div className="sobre-grid">
@@ -77,7 +80,7 @@ export default async function SobrePage() {
             <div className="sobre-stats">
               {estatisticas.map(e => (
                 <div key={e.label} className="sobre-stat">
-                  <div className="sobre-stat-num">{e.num}</div>
+                  <div className="sobre-stat-num"><CountUp value={e.num} /></div>
                   <div className="sobre-stat-label">{e.label}</div>
                 </div>
               ))}
@@ -85,7 +88,9 @@ export default async function SobrePage() {
           </div>
         </div>
       </section>
+      </AnimateOnScroll>
 
+      <AnimateOnScroll variant="fade-up" delay={100}>
       <section className="section" style={{ background: 'var(--cinza-claro)' }}>
         <div className="container">
           <div className="section-center-header">
@@ -102,8 +107,10 @@ export default async function SobrePage() {
           </div>
         </div>
       </section>
+      </AnimateOnScroll>
 
       {certificacoes.length > 0 && (
+      <AnimateOnScroll variant="fade-up" delay={100}>
         <section className="section">
           <div className="container">
             <div className="section-center-header">
@@ -119,6 +126,7 @@ export default async function SobrePage() {
             </div>
           </div>
         </section>
+      </AnimateOnScroll>
       )}
     </>
   )

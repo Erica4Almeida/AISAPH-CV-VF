@@ -1,14 +1,10 @@
 import type { NextConfig } from 'next'
 
-const isDev = process.env.NODE_ENV === 'development'
-
 const nextConfig: NextConfig = {
-  output: 'standalone',
   devIndicators: false,
   allowedDevOrigins: ['*.trycloudflare.com'],
   images: {
-    // Next.js bloqueia localhost por segurança (anti-SSRF) — desactivar otimização em dev
-    unoptimized: isDev,
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -16,8 +12,9 @@ const nextConfig: NextConfig = {
         pathname: '/uploads/**',
       },
       {
-        protocol: 'https',
-        hostname: 'api.aisaph-cv.com',
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '1337',
         pathname: '/uploads/**',
       },
     ],

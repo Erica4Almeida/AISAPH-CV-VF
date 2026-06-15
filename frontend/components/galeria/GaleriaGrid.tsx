@@ -3,10 +3,11 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import type { GaleriaFoto, StrapiMedia } from '@/types'
-import { mediaUrl as cmsMediaUrl } from '@/lib/media'
+
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
 
 function mediaUrl(media: StrapiMedia): string {
-  return cmsMediaUrl(media.url)
+  return media.url.startsWith('http') ? media.url : `${STRAPI_URL}${media.url}`
 }
 
 type ImageItem = {
@@ -119,6 +120,7 @@ export default function GaleriaGrid({ fotos }: { fotos: GaleriaFoto[] }) {
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     alt={img.alt}
                     style={{ objectFit: 'cover' }}
+                    priority={img.flatIdx < 6}
                   />
                   <div className="foto-overlay">
                     {img.descricao && (

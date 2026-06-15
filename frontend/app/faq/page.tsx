@@ -15,8 +15,21 @@ export const metadata: Metadata = {
 export default async function FaqPage() {
   const [faqs, t] = await Promise.all([getFaqs(), getT()])
 
+  const faqJsonLd = faqs.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.pergunta,
+      acceptedAnswer: { '@type': 'Answer', text: f.resposta },
+    })),
+  } : null
+
   return (
     <>
+      {faqJsonLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      )}
       <section className="page-hero">
         <div className="container container-sm">
           <p className="page-hero-tag">{t.faq.tag}</p>

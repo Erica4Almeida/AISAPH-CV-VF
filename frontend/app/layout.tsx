@@ -6,12 +6,12 @@ import Footer from '@/components/layout/Footer'
 import WhatsAppButton from '@/components/layout/WhatsAppButton'
 import CookieBanner from '@/components/layout/CookieBanner'
 import ScrollToTop from '@/components/ui/ScrollToTop'
+import NavigationProgress from '@/components/ui/NavigationProgress'
+import ScrollProgress from '@/components/ui/ScrollProgress'
 import Providers from '@/components/Providers'
 import { getConfiguracao } from '@/services/api'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://aisaph-cv.com'
-
-export const dynamic = 'force-dynamic'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://aisaph.com'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -56,6 +56,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang={lang} data-scroll-behavior="smooth">
       <body suppressHydrationWarning>
         <Providers>
+          <NavigationProgress />
+          <ScrollProgress />
           <Navbar />
           <main>{children}</main>
           <Footer cfg={cfg} />

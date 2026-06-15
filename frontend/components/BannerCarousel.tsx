@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 interface Slide {
   image: string
   label: string
+  position?: string
 }
 
 export default function BannerCarousel({
@@ -36,6 +37,7 @@ export default function BannerCarousel({
           className="carousel-slide"
           style={{
             backgroundImage: `linear-gradient(rgba(18,78,124,0.65) 0%, rgba(18,78,124,0.80) 100%), url('${slide.image}')`,
+            backgroundPosition: slide.position ?? 'center 25%',
             opacity: idx === current ? 1 : 0,
             zIndex: idx === current ? 1 : 0,
           }}
