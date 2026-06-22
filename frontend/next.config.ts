@@ -1,10 +1,13 @@
 import type { NextConfig } from 'next'
 
+const isDev = process.env.NODE_ENV === 'development'
+
 const nextConfig: NextConfig = {
+  output: 'standalone',
   devIndicators: false,
   allowedDevOrigins: ['*.trycloudflare.com'],
   images: {
-    unoptimized: true,
+    unoptimized: isDev,
     remotePatterns: [
       {
         protocol: 'https',
@@ -12,9 +15,8 @@ const nextConfig: NextConfig = {
         pathname: '/uploads/**',
       },
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '1337',
+        protocol: 'https',
+        hostname: 'api.aisaph-cv.com',
         pathname: '/uploads/**',
       },
     ],
