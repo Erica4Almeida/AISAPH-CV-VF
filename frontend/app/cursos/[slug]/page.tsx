@@ -7,9 +7,9 @@ import { getT } from '@/lib/getT'
 import CourseCard from '@/components/cursos/CourseCard'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 import type { CursoCategoria } from '@/types'
+import { mediaUrl as imgSrc } from '@/lib/media'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://aisaph.com'
-import { mediaUrl as imgSrc } from '@/lib/media'
 
 interface Props { params: Promise<{ slug: string }> }
 
