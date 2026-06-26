@@ -2,17 +2,13 @@ import Link from 'next/link'
 import Image from 'next/image'
 import type { Configuracao } from '@/types'
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
+import { mediaUrl } from '@/lib/media'
 
 export default function InCompanyDestaque({ cfg }: { cfg: Configuracao | null }) {
   if (!cfg) return null
 
   const servicos: string[] = Array.isArray(cfg.incompany_servicos) ? cfg.incompany_servicos : []
-  const imagemSrc = cfg.incompany_imagem_url
-    ? cfg.incompany_imagem_url.startsWith('http')
-      ? cfg.incompany_imagem_url
-      : `${STRAPI_URL}${cfg.incompany_imagem_url}`
-    : null
+  const imagemSrc = mediaUrl(cfg.incompany_imagem_url) || null
 
   return (
     <section id="incompany" className="incompany-section">

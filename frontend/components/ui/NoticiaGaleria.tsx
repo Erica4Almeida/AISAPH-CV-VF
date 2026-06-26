@@ -3,10 +3,10 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import type { StrapiMedia } from '@/types'
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
+import { mediaUrl } from '@/lib/media'
 
 function getSrc(foto: StrapiMedia) {
-  return foto.url.startsWith('http') ? foto.url : `${STRAPI_URL}${foto.url}`
+  return mediaUrl(foto.url)
 }
 
 export default function NoticiaGaleria({ fotos, titulo }: { fotos: StrapiMedia[]; titulo: string }) {

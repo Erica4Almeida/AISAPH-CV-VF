@@ -8,12 +8,8 @@ import CourseCard from '@/components/cursos/CourseCard'
 import Breadcrumb from '@/components/ui/Breadcrumb'
 import type { CursoCategoria } from '@/types'
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://aisaph.com'
-
-function imgSrc(url: string) {
-  return url.startsWith('http') ? url : `${STRAPI_URL}${url}`
-}
+import { mediaUrl as imgSrc } from '@/lib/media'
 
 interface Props { params: Promise<{ slug: string }> }
 

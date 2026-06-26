@@ -3,12 +3,10 @@ import Image from 'next/image'
 import type { Noticia } from '@/types'
 import AnimateOnScroll from '@/components/ui/AnimateOnScroll'
 import { formatDate } from '@/lib/formatDate'
-
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
+import { mediaUrl } from '@/lib/media'
 
 function getImgUrl(n: Noticia): string | null {
-  if (!n.imagem?.url) return null
-  return n.imagem.url.startsWith('http') ? n.imagem.url : `${STRAPI_URL}${n.imagem.url}`
+  return mediaUrl(n.imagem?.url) || null
 }
 
 
