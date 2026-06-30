@@ -26,10 +26,9 @@ variables:
     entrypoint: [""]
     pull_policy: if-not-present
   before_script:
-    - mkdir -p ~/.kube
-    - cp $KUBECONFIG_SINTAXY ~/.kube/config
+    - kubectl config use-context $K8S_CONTEXT
   script:
-    - kubectl apply -f k8s/namespace.yaml
+    - kubectl apply -f k8s/namespace.yaml || true
     - kubectl apply -f k8s/postgres/
     - kubectl apply -f k8s/cms/
     - kubectl apply -f k8s/frontend/
