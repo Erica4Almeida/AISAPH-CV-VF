@@ -16,6 +16,8 @@ variables:
   image: docker:26
   services:
     - docker:26-dind
+  tags:
+    - shared  # replace with the tag shown in runner #82 settings if different
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
   rules:
@@ -42,6 +44,8 @@ build-frontend:
 deploy:
   stage: deploy
   image: bitnami/kubectl:latest
+  tags:
+    - shared  # replace with the tag shown in runner #82 settings if different
   needs:
     - build-cms
     - build-frontend
@@ -63,4 +67,4 @@ deploy:
     - if: $CI_COMMIT_BRANCH == "main"
   environment:
     name: production
-    url: https://your-domain.com
+    url: https://aisaph.com
