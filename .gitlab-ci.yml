@@ -3,58 +3,31 @@ stages:
   - deploy
 
 variables:
-  REGISTRY: registry.sintaxy.com/cvse1/aisaph-cv-vf
-  IMAGE_CMS: $REGISTRY/cms
-  IMAGE_FRONTEND: $REGISTRY/frontend
+  IMAGE_CMS: $CI_REGISTRY_IMAGE/cms
+  IMAGE_FRONTEND: $CI_REGISTRY_IMAGE/frontend
+  TAG: $CI_COMMIT_REF_NAME-$CI_COMMIT_SHORT_SHA
 
 # ──────────────────────────────────────────────
-# BUILD
+# TEMPLATES
 # ──────────────────────────────────────────────
 
-.build_template: &build_template
+.build:
   stage: build
-  image: docker:26
-  services:
-    - docker:26-dind
-  tags:
-    - shared  # replace with the tag shown in runner #82 settings if different
+  image:
+    name: docker
+    pull_policy: if-not-present
   before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
-build-cms:
-  <<: *build_template
-  script:
-    - docker build -t "$IMAGE_CMS:latest" -t "$IMAGE_CMS:$CI_COMMIT_SHORT_SHA" ./cms
-    - docker push "$IMAGE_CMS:latest"
-    - docker push "$IMAGE_CMS:$CI_COMMIT_SHORT_SHA"
-
-build-frontend:
-  <<: *build_template
-  script:
-    - docker build -t "$IMAGE_FRONTEND:latest" -t "$IMAGE_FRONTEND:$CI_COMMIT_SHORT_SHA" ./frontend
-    - docker push "$IMAGE_FRONTEND:latest"
-    - docker push "$IMAGE_FRONTEND:$CI_COMMIT_SHORT_SHA"
-
-# ──────────────────────────────────────────────
-# DEPLOY
-# ──────────────────────────────────────────────
-
-deploy:
+.deploy:
   stage: deploy
   image:
-    name: bitnami/kubectl:latest
+    name: syseleven/kubectl-helm
     entrypoint: [""]
-  tags:
-    - shared  # replace with the tag shown in runner #82 settings if different
-  needs:
-    - build-cms
-    - build-frontend
+    pull_policy: if-not-present
   before_script:
     - mkdir -p ~/.kube
-    - echo "$KUBECONFIG_B64" | base64 -d > ~/.kube/config
-    - chmod 600 ~/.kube/config
+    - cp $KUBECONFIG_SINTAXY ~/.kube/config
   script:
     - kubectl apply -f k8s/namespace.yaml
     - kubectl apply -f k8s/postgres/
@@ -65,8 +38,43 @@ deploy:
     - kubectl rollout restart deployment/frontend -n production
     - kubectl rollout status deployment/cms -n production --timeout=180s
     - kubectl rollout status deployment/frontend -n production --timeout=120s
+  tags:
+    - shared
+
+# ──────────────────────────────────────────────
+# BUILD JOBS
+# ──────────────────────────────────────────────
+
+build-cms:
+  extends: .build
+  script:
+    - docker build -t "$IMAGE_CMS:$TAG" -t "$IMAGE_CMS:latest" ./cms
+    - docker push "$IMAGE_CMS:$TAG"
+    - docker push "$IMAGE_CMS:latest"
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
-  environment:
-    name: production
-    url: https://your-domain.com
+      when: on_success
+
+build-frontend:
+  extends: .build
+  script:
+    - docker build -t "$IMAGE_FRONTEND:$TAG" -t "$IMAGE_FRONTEND:latest" ./frontend
+    - docker push "$IMAGE_FRONTEND:$TAG"
+    - docker push "$IMAGE_FRONTEND:latest"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: on_success
+
+# ──────────────────────────────────────────────
+# DEPLOY JOBS
+# ──────────────────────────────────────────────
+
+deploy-production:
+  extends: .deploy
+  environment: production
+  needs:
+    - build-cms
+    - build-frontend
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: on_success
