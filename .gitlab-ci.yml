@@ -1,0 +1,66 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  REGISTRY: registry.sintaxy.com/cvse1/aisaph-cv-vf
+  IMAGE_CMS: $REGISTRY/cms
+  IMAGE_FRONTEND: $REGISTRY/frontend
+
+# ──────────────────────────────────────────────
+# BUILD
+# ──────────────────────────────────────────────
+
+.build_template: &build_template
+  stage: build
+  image: docker:26
+  services:
+    - docker:26-dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+build-cms:
+  <<: *build_template
+  script:
+    - docker build -t "$IMAGE_CMS:latest" -t "$IMAGE_CMS:$CI_COMMIT_SHORT_SHA" ./cms
+    - docker push "$IMAGE_CMS:latest"
+    - docker push "$IMAGE_CMS:$CI_COMMIT_SHORT_SHA"
+
+build-frontend:
+  <<: *build_template
+  script:
+    - docker build -t "$IMAGE_FRONTEND:latest" -t "$IMAGE_FRONTEND:$CI_COMMIT_SHORT_SHA" ./frontend
+    - docker push "$IMAGE_FRONTEND:latest"
+    - docker push "$IMAGE_FRONTEND:$CI_COMMIT_SHORT_SHA"
+
+# ──────────────────────────────────────────────
+# DEPLOY
+# ──────────────────────────────────────────────
+
+deploy:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  needs:
+    - build-cms
+    - build-frontend
+  before_script:
+    - mkdir -p ~/.kube
+    - echo "$KUBECONFIG_B64" | base64 -d > ~/.kube/config
+    - chmod 600 ~/.kube/config
+  script:
+    - kubectl apply -f k8s/namespace.yaml
+    - kubectl apply -f k8s/postgres/
+    - kubectl apply -f k8s/cms/
+    - kubectl apply -f k8s/frontend/
+    - kubectl apply -f k8s/ingress.yaml
+    - kubectl rollout restart deployment/cms -n production
+    - kubectl rollout restart deployment/frontend -n production
+    - kubectl rollout status deployment/cms -n production --timeout=180s
+    - kubectl rollout status deployment/frontend -n production --timeout=120s
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+  environment:
+    name: production
+    url: https://your-domain.com
