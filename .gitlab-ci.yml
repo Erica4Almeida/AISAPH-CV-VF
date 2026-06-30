@@ -43,7 +43,9 @@ build-frontend:
 
 deploy:
   stage: deploy
-  image: bitnami/kubectl:latest
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: [""]
   tags:
     - shared  # replace with the tag shown in runner #82 settings if different
   needs:
@@ -67,4 +69,4 @@ deploy:
     - if: $CI_COMMIT_BRANCH == "main"
   environment:
     name: production
-    url: https://aisaph.com
+    url: https://your-domain.com
