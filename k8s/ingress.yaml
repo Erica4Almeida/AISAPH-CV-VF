@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: aisaph-ingress
+  namespace: production
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - aisaph.com
+        - cms.aisaph.com
+      secretName: aisaph-tls
+  rules:
+    # ── Frontend ────────────────────────────────────────────────
+    - host: aisaph.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 3000
+    # ── CMS (Strapi) ─────────────────────────────────────────────
+    - host: cms.aisaph.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cms
+                port:
+                  number: 1337

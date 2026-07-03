@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cms-config
+  namespace: production
+data:
+  HOST: "0.0.0.0"
+  PORT: "1337"
+  DATABASE_CLIENT: "postgres"
+  DATABASE_HOST: "postgres-0.postgres-headless.production.svc.cluster.local"
+  DATABASE_PORT: "5432"
+  DATABASE_NAME: "aisaph"
+  DATABASE_USERNAME: "aisaph"
+  DATABASE_SSL: "false"
+  PUBLIC_URL: "https://cms.aisaph.com"
+  NODE_ENV: "production"
