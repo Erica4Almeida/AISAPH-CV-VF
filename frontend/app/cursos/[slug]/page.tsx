@@ -84,7 +84,7 @@ export default async function CursoDetailPage({ params }: Props) {
           <div className="curso-detail-grid">
             <div>
               <h2 className="curso-detail-h2">{t.cursos.sobreCurso}</h2>
-              <div className="curso-detail-text" dangerouslySetInnerHTML={{ __html: descricao }} />
+              <div className="curso-detail-text" dangerouslySetInnerHTML={{ __html: descricao ?? '' }} />
 
               {img && (
                 <div className="curso-detail-img-wrap">
