@@ -11,12 +11,9 @@ import { mediaUrl as imgSrc } from '@/lib/media'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://aisaph.com'
 
-interface Props { params: Promise<{ slug: string }> }
+export const dynamic = 'force-dynamic'
 
-export async function generateStaticParams() {
-  const cursos = await getCursos()
-  return cursos.map(c => ({ slug: c.slug }))
-}
+interface Props { params: Promise<{ slug: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
