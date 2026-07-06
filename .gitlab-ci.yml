@@ -35,7 +35,7 @@ variables:
     - kubectl apply -f k8s/ingress.yaml
     - kubectl rollout restart deployment/cms -n production
     - kubectl rollout restart deployment/frontend -n production
-    - kubectl rollout status deployment/cms -n production --timeout=180s
+    - kubectl rollout status deployment/cms -n production --timeout=360s
     - kubectl rollout status deployment/frontend -n production --timeout=120s
   tags:
     - shared
