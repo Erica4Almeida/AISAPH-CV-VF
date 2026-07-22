@@ -16,18 +16,22 @@ export const dynamic = 'force-dynamic'
 interface Props { params: Promise<{ slug: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
-  const curso = await getCursoBySlug(slug)
-  if (!curso) return { title: 'Curso não encontrado' }
-  const desc = curso.descricao?.replace(/<[^>]*>/g, '').slice(0, 160) ?? ''
-  return {
-    title: curso.titulo,
-    description: desc,
-    openGraph: {
-      title: `${curso.titulo} | AISAPH-CV`,
+  try {
+    const { slug } = await params
+    const curso = await getCursoBySlug(slug)
+    if (!curso) return { title: 'Curso não encontrado' }
+    const desc = curso.descricao?.replace(/<[^>]*>/g, '').slice(0, 160) ?? ''
+    return {
+      title: curso.titulo,
       description: desc,
-      ...(curso.imagem ? { images: [{ url: imgSrc(curso.imagem.url) }] } : {}),
-    },
+      openGraph: {
+        title: `${curso.titulo} | AISAPH-CV`,
+        description: desc,
+        ...(curso.imagem ? { images: [{ url: imgSrc(curso.imagem.url) }] } : {}),
+      },
+    }
+  } catch {
+    return { title: 'Curso | AISAPH-CV' }
   }
 }
 

@@ -15,13 +15,17 @@ import { mediaUrl } from '@/lib/media'
 export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params
-  const noticia = await getNoticiaBySlug(slug)
-  if (!noticia) return { title: 'Notícia não encontrada' }
-  return {
-    title: noticia.titulo,
-    description: noticia.resumo ?? '',
-    openGraph: { title: `${noticia.titulo} | AISAPH-CV`, description: noticia.resumo ?? '' },
+  try {
+    const { slug } = await params
+    const noticia = await getNoticiaBySlug(slug)
+    if (!noticia) return { title: 'Notícia não encontrada' }
+    return {
+      title: noticia.titulo,
+      description: noticia.resumo ?? '',
+      openGraph: { title: `${noticia.titulo} | AISAPH-CV`, description: noticia.resumo ?? '' },
+    }
+  } catch {
+    return { title: 'Notícia | AISAPH-CV' }
   }
 }
 
