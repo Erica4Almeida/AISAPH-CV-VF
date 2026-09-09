@@ -97,6 +97,14 @@ export default function Footer({ cfg }: { cfg: Configuracao | null }) {
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} AISAPH-CV. {t.footer.direitos}</span>
         <span>{t.footer.academia}</span>
+        <a
+          href="https://webmail.aisaph.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer-staff-link"
+        >
+          Staff
+        </a>
       </div>
     </footer>
   )
