@@ -251,7 +251,12 @@ export default function InscricaoForm({
     setStatus('loading')
     setServerError('')
     try {
-      const payload = { ...form, competencias: form.competencias.join(', ') }
+      const payload = {
+        ...form,
+        competencias: form.competencias.join(', '),
+        data_inicio_prevista: form.data_inicio_prevista || null,
+        data_fim_prevista: form.data_fim_prevista || null,
+      }
       const res = await fetch('/api/inscricoes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
