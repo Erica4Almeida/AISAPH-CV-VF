@@ -179,12 +179,36 @@ export interface Noticia {
 }
 
 export interface InscricaoPayload {
+  // Dados do candidato
   nome: string
-  email: string
+  data_nascimento: string
+  documento_id: string
+  nif: string
+  nacionalidade: string
+  sexo: string
   telefone: string
+  email: string
+  endereco: string
+  profissao?: string
+  instituicao?: string
+  // Informações sobre o curso
   curso_interesse: string
   turma_info?: string
-  mensagem?: string
+  modalidade: string
+  local_formacao?: string
+  data_inicio_prevista?: string
+  data_fim_prevista?: string
+  // Educação & competências
+  nivel_escolaridade: string
+  experiencia_aph: string
+  experiencia_aph_descricao?: string
+  certificacoes_anteriores: string
+  certificacoes_anteriores_info?: string
+  competencias?: string
+  // Declaração de compromisso
+  declaracao_condicoes: boolean
+  declaracao_imagem: boolean
+  declaracao_normas: boolean
 }
 
 export interface PropostaPayload {
