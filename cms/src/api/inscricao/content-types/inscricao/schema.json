@@ -23,14 +23,82 @@
     "telefone": {
       "type": "string"
     },
+    "data_nascimento": {
+      "type": "date"
+    },
+    "documento_id": {
+      "type": "string"
+    },
+    "nif": {
+      "type": "string"
+    },
+    "nacionalidade": {
+      "type": "string"
+    },
+    "sexo": {
+      "type": "enumeration",
+      "enum": ["feminino", "masculino"]
+    },
+    "endereco": {
+      "type": "string"
+    },
+    "profissao": {
+      "type": "string"
+    },
+    "instituicao": {
+      "type": "string"
+    },
     "curso_interesse": {
       "type": "string"
     },
-    "mensagem": {
-      "type": "text"
-    },
     "turma_info": {
       "type": "string"
+    },
+    "modalidade": {
+      "type": "enumeration",
+      "enum": ["presencial", "semi_presencial", "online"]
+    },
+    "local_formacao": {
+      "type": "string"
+    },
+    "data_inicio_prevista": {
+      "type": "date"
+    },
+    "data_fim_prevista": {
+      "type": "date"
+    },
+    "nivel_escolaridade": {
+      "type": "enumeration",
+      "enum": ["basico", "secundario", "tecnico", "superior", "outro"]
+    },
+    "experiencia_aph": {
+      "type": "enumeration",
+      "enum": ["sim", "nao"]
+    },
+    "experiencia_aph_descricao": {
+      "type": "text"
+    },
+    "certificacoes_anteriores": {
+      "type": "enumeration",
+      "enum": ["sim", "nao"]
+    },
+    "certificacoes_anteriores_info": {
+      "type": "text"
+    },
+    "competencias": {
+      "type": "text"
+    },
+    "declaracao_condicoes": {
+      "type": "boolean"
+    },
+    "declaracao_imagem": {
+      "type": "boolean"
+    },
+    "declaracao_normas": {
+      "type": "boolean"
+    },
+    "mensagem": {
+      "type": "text"
     },
     "estado": {
       "type": "enumeration",
