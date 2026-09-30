@@ -1,0 +1,94 @@
+{
+  "kind": "singleType",
+  "collectionName": "configuracao",
+  "info": {
+    "singularName": "configuracao",
+    "pluralName": "configuracaos",
+    "displayName": "Configuração Global",
+    "description": "Contactos, redes sociais, CTA, rodapé e textos da secção In-Company"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "contato_telefone": {
+      "type": "string"
+    },
+    "contato_telefone_href": {
+      "type": "string"
+    },
+    "contato_whatsapp": {
+      "type": "string"
+    },
+    "contato_whatsapp_href": {
+      "type": "string"
+    },
+    "contato_email": {
+      "type": "email"
+    },
+    "contato_localizacao": {
+      "type": "string"
+    },
+    "contato_maps_embed": {
+      "type": "text"
+    },
+    "social_facebook": {
+      "type": "string"
+    },
+    "social_instagram": {
+      "type": "string"
+    },
+    "social_linkedin": {
+      "type": "string"
+    },
+    "footer_descricao": {
+      "type": "text"
+    },
+    "cta_titulo": {
+      "type": "string"
+    },
+    "cta_subtitulo": {
+      "type": "text"
+    },
+    "cta_btn_primario": {
+      "type": "string"
+    },
+    "cta_btn_secundario": {
+      "type": "string"
+    },
+    "incompany_descricao": {
+      "type": "text"
+    },
+    "incompany_servicos": {
+      "type": "json"
+    },
+    "incompany_badge_num": {
+      "type": "string"
+    },
+    "incompany_badge_label": {
+      "type": "string"
+    },
+    "incompany_imagem_url": {
+      "type": "string"
+    },
+    "incompany_header_titulo": {
+      "type": "string"
+    },
+    "incompany_header_subtitulo": {
+      "type": "text"
+    },
+    "incompany_tag": {
+      "type": "string"
+    },
+    "incompany_titulo": {
+      "type": "string"
+    },
+    "incompany_btn_proposta": {
+      "type": "string"
+    },
+    "cta_tag": {
+      "type": "string"
+    }
+  }
+}

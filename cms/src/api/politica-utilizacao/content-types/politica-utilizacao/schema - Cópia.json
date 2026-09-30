@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "politica_utilizacaos",
+  "info": {
+    "singularName": "politica-utilizacao",
+    "pluralName": "politica-utilizacaos",
+    "displayName": "politica-utilizacao"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "data_atualizacao": {
+      "type": "date",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "conteudo": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

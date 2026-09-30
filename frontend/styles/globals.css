@@ -426,11 +426,10 @@ img { max-width: 100%; display: block; }
 }
 
 .nav-logo-text {
-  font-family: var(--font-titulo);
-  font-weight: 700;
-  font-size: 1.4rem;
+  font-family: 'Black Ops One', var(--font-titulo), sans-serif;
+  font-weight: 400;
+  font-size: 1.5rem;
   letter-spacing: 2px;
-  color: #fff;
 }
 
 .nav-desktop {

@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "termos_condicoes",
+  "info": {
+    "singularName": "termos-condicoe",
+    "pluralName": "termos-condicoes",
+    "displayName": "termos-condicoes"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "data_atualizacao": {
+      "type": "date",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "conteudo": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

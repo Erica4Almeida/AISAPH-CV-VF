@@ -100,8 +100,8 @@ export default function Navbar() {
         style={{ boxShadow: scrolled ? '0 4px 20px rgba(0,0,0,0.2)' : 'none' }}
       >
         <Link href="/" className="nav-logo">
-          <img src="/logo.png" alt="AISAPH-CV" style={{ height: '40px', width: 'auto' }} />
-          <span className="nav-logo-text">AISAPH-CV</span>
+          <img src="/logo.png" alt="AISAPH-CV" style={{ height: '60px', width: 'auto' }} />
+          <img src="/logo-texto.png" alt="AISAPH-CV" style={{ height: '30px', width: 'auto' }} />
         </Link>
 
         <div className="nav-desktop">

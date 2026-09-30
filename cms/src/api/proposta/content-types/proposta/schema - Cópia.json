@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "propostas",
+  "info": {
+    "singularName": "proposta",
+    "pluralName": "propostas",
+    "displayName": "Proposta In-Company",
+    "description": "Propostas de formação in-company recebidas pelo site"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "empresa": {
+      "type": "string",
+      "required": true
+    },
+    "nome_contato": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "telefone": {
+      "type": "string"
+    },
+    "numero_participantes": {
+      "type": "integer"
+    },
+    "descricao": {
+      "type": "text",
+      "required": true
+    },
+    "estado": {
+      "type": "enumeration",
+      "enum": [
+        "pendente ",
+        "em_analise",
+        "aceite",
+        "rejeitado"
+      ]
+    }
+  }
+}

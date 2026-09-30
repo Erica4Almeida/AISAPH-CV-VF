@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "setores",
+  "info": {
+    "singularName": "setor",
+    "pluralName": "setores",
+    "displayName": "Setor In-Company",
+    "description": "Setores de atuação In-Company (cards na página /in-company)"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "icone": {
+      "type": "string",
+      "required": false
+    },
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descricao": {
+      "type": "text",
+      "required": true
+    },
+    "ordem": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

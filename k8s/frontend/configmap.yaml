@@ -14,5 +14,5 @@ data:
   SMTP_HOST: "mail.aisaph.com"
   SMTP_PORT: "465"
   SMTP_SECURE: "true"
-  SMTP_USER: "matriculas@aisaph.com"
-  MAIL_FROM: "AISAPH-CV <matriculas@aisaph.com>"
+  SMTP_USER: "noreply@aisaph.com"
+  MAIL_FROM: "AISAPH-CV <noreply@aisaph.com>"

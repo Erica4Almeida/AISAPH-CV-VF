@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "turmas",
+  "info": {
+    "singularName": "turma",
+    "pluralName": "turmas",
+    "displayName": "Turma",
+    "description": "Calendário de turmas disponíveis"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "data_inicio": {
+      "type": "date",
+      "required": true
+    },
+    "data_fim": {
+      "type": "date"
+    },
+    "local": {
+      "type": "string"
+    },
+    "vagas_disponiveis": {
+      "type": "integer",
+      "default": 20
+    },
+    "curso": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::curso.curso",
+      "inversedBy": "turmas"
+    }
+  }
+}
