@@ -10,3 +10,9 @@ data:
   NEXT_PUBLIC_STRAPI_URL: "https://cms.aisaph.com"
   NEXT_PUBLIC_SITE_URL: "https://aisaph.com"
   NODE_ENV: "production"
+  # Email SMTP
+  SMTP_HOST: "mail.aisaph.com"
+  SMTP_PORT: "465"
+  SMTP_SECURE: "true"
+  SMTP_USER: "matriculas@aisaph.com"
+  MAIL_FROM: "AISAPH-CV <matriculas@aisaph.com>"
