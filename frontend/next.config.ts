@@ -2,6 +2,7 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  serverExternalPackages: ['nodemailer', 'pdfkit'],
   devIndicators: false,
   allowedDevOrigins: ['*.trycloudflare.com'],
   images: {
