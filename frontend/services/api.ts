@@ -91,16 +91,25 @@ async function get<T>(
 }
 
 async function post<T>(path: string, body: unknown): Promise<T> {
-  const res = await fetch(`${BASE_URL}/api${path}`, {
-    method: 'POST',
-    headers: buildHeaders(),
-    body: JSON.stringify({ data: body }),
-  })
-  if (!res.ok) {
-    const text = await res.text()
-    throw new Error(`POST ${path} → ${res.status}: ${text}`)
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), 8000)
+  try {
+    const res = await fetch(`${BASE_URL}/api${path}`, {
+      method: 'POST',
+      headers: buildHeaders(),
+      body: JSON.stringify({ data: body }),
+      signal: controller.signal,
+    })
+    clearTimeout(timer)
+    if (!res.ok) {
+      const text = await res.text()
+      throw new Error(`POST ${path} → ${res.status}: ${text}`)
+    }
+    return res.json() as Promise<T>
+  } catch (err) {
+    clearTimeout(timer)
+    throw err
   }
-  return res.json() as Promise<T>
 }
 
 export async function getCursos(categoria?: CursoCategoria | '', destaque?: boolean): Promise<Curso[]> {

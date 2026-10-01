@@ -20,6 +20,14 @@ function str(v: unknown): string {
   return String(v)
 }
 
+function esc(v: unknown): string {
+  return str(v)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
+
 const modalidadeLabel: Record<string, string> = {
   presencial: 'Presencial', semi_presencial: 'Semi Presencial', online: 'Online',
 }
@@ -141,7 +149,7 @@ function linha(label: string, valor: string) {
   const vazia = valor === '—'
   return `<tr>
     <td style="padding:6px 12px;color:${CINZA};font-size:0.85rem;width:200px;vertical-align:top;white-space:nowrap">${label}</td>
-    <td style="padding:6px 12px;font-weight:${vazia ? '400' : '600'};color:${vazia ? '#b0bec5' : '#1a2a3a'}">${valor}</td>
+    <td style="padding:6px 12px;font-weight:${vazia ? '400' : '600'};color:${vazia ? '#b0bec5' : '#1a2a3a'}">${esc(valor)}</td>
   </tr>`
 }
 
@@ -222,12 +230,12 @@ export async function enviarEmailInscricao(d: Record<string, unknown>) {
 
 /* ── email de confirmação para o candidato ──────────────────── */
 export async function enviarEmailConfirmacao(d: Record<string, unknown>) {
-  const nome = str(d.nome)
+  const nome = esc(d.nome)
   const email = str(d.email)
-  const telefone = str(d.telefone)
-  const curso = str(d.curso_interesse)
-  const turma = d.turma_info ? str(d.turma_info) : null
-  const modalidade = d.modalidade ? (modalidadeLabel[str(d.modalidade)] ?? str(d.modalidade)) : null
+  const telefone = esc(d.telefone)
+  const curso = esc(d.curso_interesse)
+  const turma = d.turma_info ? esc(d.turma_info) : null
+  const modalidade = d.modalidade ? (modalidadeLabel[str(d.modalidade)] ?? esc(d.modalidade)) : null
 
   if (email === '—') return
 
