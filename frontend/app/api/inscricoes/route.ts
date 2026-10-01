@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       emailErrors.confirmacao = err instanceof Error ? `${err.message}\n${err.stack}` : String(err)
     }
 
-    return NextResponse.json({ ...result, _emailErrors: emailErrors }, { status: 201 })
+    return NextResponse.json({ result, _emailErrors: emailErrors }, { status: 201 })
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Erro ao processar inscrição'
     console.error('[POST /api/inscricoes]', msg)
