@@ -7,15 +7,16 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const result = await criarInscricao(body)
 
-    // Envia emails em background — não bloqueia a resposta ao utilizador
-    enviarEmailInscricao(body).catch(err =>
-      console.error('[EMAIL inscricao]', err instanceof Error ? err.message : err)
-    )
-    enviarEmailConfirmacao(body).catch(err =>
-      console.error('[EMAIL confirmacao]', err instanceof Error ? err.message : err)
-    )
+    // DEBUG TEMPORÁRIO — expõe erros de email na resposta
+    const emailErrors: Record<string, string> = {}
+    try { await enviarEmailInscricao(body) } catch (err) {
+      emailErrors.inscricao = err instanceof Error ? `${err.message}\n${err.stack}` : String(err)
+    }
+    try { await enviarEmailConfirmacao(body) } catch (err) {
+      emailErrors.confirmacao = err instanceof Error ? `${err.message}\n${err.stack}` : String(err)
+    }
 
-    return NextResponse.json(result, { status: 201 })
+    return NextResponse.json({ ...result, _emailErrors: emailErrors }, { status: 201 })
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Erro ao processar inscrição'
     console.error('[POST /api/inscricoes]', msg)
