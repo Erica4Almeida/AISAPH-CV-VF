@@ -1,5 +1,13 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap');
 
+@font-face {
+  font-family: 'BBigerOver';
+  src: url('/fonts/bBigerOver.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --azul:          #124E7C;
   --azul-medio:    #0d3d61;
@@ -426,10 +434,27 @@ img { max-width: 100%; display: block; }
 }
 
 .nav-logo-text {
-  font-family: 'Black Ops One', var(--font-titulo), sans-serif;
+  font-family: 'BBigerOver', sans-serif;
   font-weight: 400;
-  font-size: 1.5rem;
-  letter-spacing: 2px;
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+.nav-logo-block {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+.nav-logo-ais     { color: #ffffff;         }
+.nav-logo-aph     { color: #ffffff;     }
+.nav-logo-cv      { color: #ffffff;       }
+.nav-logo-tagline {
+  font-family: var(--font-corpo);
+  font-size: 0.38rem;
+  letter-spacing: 0.5px;
+  color: rgb(255, 255, 255);
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .nav-desktop {

@@ -91,7 +91,21 @@ export default function Footer({ cfg }: { cfg: Configuracao | null }) {
           )}
         </div>
 
-        <div />
+        <div>
+          <h4 className="footer-heading">Área de Alunos</h4>
+          <ul className="footer-nav-list">
+            <li>
+              <a
+                href="https://cursos.aisaph.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-nav-link"
+              >
+                Plataforma Moodle
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
 
       <div className="footer-bottom">

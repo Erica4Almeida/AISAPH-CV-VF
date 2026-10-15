@@ -101,7 +101,16 @@ export default function Navbar() {
       >
         <Link href="/" className="nav-logo">
           <img src="/logo.png" alt="AISAPH-CV" style={{ height: '60px', width: 'auto' }} />
-          <img src="/logo-texto.png" alt="AISAPH-CV" style={{ height: '30px', width: 'auto' }} />
+          <span className="nav-logo-block">
+            <span className="nav-logo-text" aria-label="AISAPH.CV">
+              <span className="nav-logo-ais">AIS</span>
+              <span className="nav-logo-aph">APH</span>
+              <span className="nav-logo-cv">-CV</span>
+            </span>
+            <span className="nav-logo-tagline">
+              Academia Internacional de Socorrismo e APH de Cabo Verde
+            </span>
+          </span>
         </Link>
 
         <div className="nav-desktop">
